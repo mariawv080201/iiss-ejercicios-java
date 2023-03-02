@@ -53,6 +53,36 @@ Por ello, el uso de la herencia no es adecuado. Todo lo que hace esa clase ya lo
 
 b) En el caso de que haya algún problema en la implementación anterior, proponga una solución alternativa usando composición/delegación que resuelva el problema.
 
+public class ElementsSet<E> implements Set<E> {
+    // The internal HashSet that holds the elements
+    private final Set<E> set = new HashSet<>();
+
+    // Number of attempted elements insertions using the "add" method
+    private int numberOfAddedElements = 0;
+
+    @Override
+    public boolean add(E element) {
+        numberOfAddedElements++; // Counting the element added
+        return set.add(element);
+    }
+
+    @Override
+    public boolean addAll(Collection<? extends E> elements) {
+        numberOfAddedElements += elements.size(); // Counting the elements added
+        return set.addAll(elements);
+    }
+
+    // Delegating all other Set methods to the internal HashSet object
+    @Override
+    public int size() {
+        return set.size();
+    }
+
+    public int getNumberOfAddedElements() {
+        return numberOfAddedElements;
+    }
+}
+
 ### Ejercicio 2
 
 Dado los siguientes fragmentos de código responder a las siguientes preguntas:
