@@ -9,7 +9,9 @@ Dados los siguientes fragmentos de código, responder a las siguientes preguntas
 #### `ElementsSet.java`
 
 ```java
-public class ElementsSet<E> extends HashSet<E> {
+
+public class ElementsSet<E> extends HashSet<E>
+{
     //Number of attempted elements insertions using the "add" method
     private int numberOfAddedElements = 0;
 
