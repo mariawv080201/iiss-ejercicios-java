@@ -55,6 +55,7 @@ Por ello, el uso de la herencia no es adecuado. Todo lo que hace esa clase ya lo
 
 b) En el caso de que haya algún problema en la implementación anterior, proponga una solución alternativa usando composición/delegación que resuelva el problema.
 
+```java
 public class ElementsSet<E> implements Set<E> {
     // The internal HashSet that holds the elements
     private final Set<E> set = new HashSet<>();
@@ -84,6 +85,7 @@ public class ElementsSet<E> implements Set<E> {
         return numberOfAddedElements;
     }
 }
+```
 
 ### Ejercicio 2
 
