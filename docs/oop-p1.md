@@ -47,6 +47,10 @@ public class ElementsSet<E> extends HashSet<E> {
 
 a) ¿Es el uso de la herencia adecuado para la implementación de la clase `ElementsSet`? ¿Qué salida muestra la función `System.out.println` al invocar el método `getNumberOfAddedElements`, 3 o 6?
 
+La salida muestra 6.
+Si miramos la clase HashSet, el método al que llamada addAll ya suma el número de elementos. Entonces se suma dos veces.
+Por ello, el uso de la herencia no es adecuado. Todo lo que hace esa clase ya lo hace la super clase. Ésto sólo crea dependencias.
+
 b) En el caso de que haya algún problema en la implementación anterior, proponga una solución alternativa usando composición/delegación que resuelva el problema.
 
 ### Ejercicio 2
