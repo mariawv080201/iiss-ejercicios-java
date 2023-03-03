@@ -171,6 +171,85 @@ a) ¿Es correcto el uso de herencia en la implementación de las clases `Cat` y 
 
 numberOfLegs nunca se modifica, no hay ningún método para ello, por lo tanto cuando devolvamos este número con el método getNumberOfLegs() obtendremos cero para el gato y para el perro.
 
-Aparte de esto, es mejor usar la delegación o composición (delegación "en horizontal") ya que los miembros delegados son cambiables en tiempo de ejecución sin afectar al código cliente ya existente. 
+Además, falta un constructor en las subclases.
 
 b) En el caso de que el uso de la herencia no sea correcto, proponga una solución alternativa. ¿Cuáles son los beneficios de la solución propuesta frente a la original?
+
+#### `Animal.java`
+
+```java
+public abstract class Animal {
+    //Number of legs the animal holds
+    protected int numberOfLegs = 0;
+    
+    public Animal(int nLegs) {
+        numberOfLegs = nLegs;
+    }
+
+    public abstract String speak();
+    public abstract boolean eat(String typeOfFeed);
+    public abstract int getNumberOfLegs();
+}
+```
+
+#### `Cat.java`
+
+```java
+public class Cat extends Animal {
+
+    public Cat(int nLegs) {
+         super(nLegs);
+    }
+    
+    @Override
+    public String speak() {
+        return "Meow";
+    }
+
+    @Override
+    public boolean eat(String typeOfFeed) {
+        if(typeOfFeed.equals("fish")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int getNumberOfLegs() {
+        return super.numberOfLegs;
+    }
+}
+```
+
+#### `Dog.java`
+
+```java
+public class Dog extends Animal {
+
+    public Dog(int nLegs) {
+         super(nLegs);
+    }
+
+    @Override
+    public String speak() {
+        return "Woof";
+    }
+
+    @Override
+    public boolean eat(String typeOfFeed) {
+        if(typeOfFeed.equals("meat")) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    @Override
+    public int getNumberOfLegs() {
+        return super.numberOfLegs;
+    }
+}
+```
+
+
