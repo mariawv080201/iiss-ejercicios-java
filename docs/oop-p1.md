@@ -175,8 +175,6 @@ Además, falta un constructor en las subclases.
 
 b) En el caso de que el uso de la herencia no sea correcto, proponga una solución alternativa. ¿Cuáles son los beneficios de la solución propuesta frente a la original?
 
-#### `Animal.java`
-
 ```java
 public abstract class Animal {
     //Number of legs the animal holds
@@ -190,11 +188,7 @@ public abstract class Animal {
     public abstract boolean eat(String typeOfFeed);
     public abstract int getNumberOfLegs();
 }
-```
 
-#### `Cat.java`
-
-```java
 public class Cat extends Animal {
 
     public Cat(int nLegs) {
@@ -220,11 +214,7 @@ public class Cat extends Animal {
         return super.numberOfLegs;
     }
 }
-```
 
-#### `Dog.java`
-
-```java
 public class Dog extends Animal {
 
     public Dog(int nLegs) {
