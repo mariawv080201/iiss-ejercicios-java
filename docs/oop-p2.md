@@ -221,8 +221,50 @@ a) ¿Existe algún tipo de problema en la implementación anterior de los que se
 
 + Funciones con demasiada responsabilidad: la función getUsers tiene varias tareas, ordenar los usurios por puntos y capitalizar los nombres. Es mejor crear dos funciones distintas ya que para detectar errores es más difícil y no puedes hacer sólo una de las dos tareas.
 
++ Bucles demasiado largos o demasiado anidados: personalmente, las partes siguientes son más difíciles de entender que si se hiciesen con un bucle explícito. Para mantener y actualizar el código, es más complicado así.
+```java
+users.forEach(x -> usersCapitalized.add(x.toUpperCase()));
+``
+
 
 b) En el caso de que la implementación necesite la aplicación de refactoring, realice los cambios oportunos e indique las mejoras que aporta su implementación respecto a la original.
+
++ He dividido la función getUsers en dos funciones con las dos tareas distintas que realiza.
++ He puesto nombres significativos a las funciones: getSortedUsersByPoints y getCapitalizedUsers.
++ He puesto el bucle explícito en vez de implícito.
+
+
+```java
+public class GroupOfUsers {
+ 
+    private static Map<String, Integer> usersWithPoints =
+      new HashMap<String, Integer>() {{
+        put("User1", 800);
+        put("User2", 550);
+        put("User3", 20);
+        put("User4", 300);
+    }};
+    
+   public List<String> getSortedUsersByPoints() {
+      List<String> sortedUsers = new ArrayList<String>();
+      
+      usersWithPoints.entrySet()
+      .stream()
+      .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+      .forEachOrdered(x -> sortedUsers.add(x.getKey()));
+      return sortedUsers;
+  }
+
+  public List<String> getCapitalizedUsers(List<String> users) {
+      List<String> capitalizedUsers = new ArrayList<String>();
+
+      for (String user : users) {
+          capitalizedUsers.add(user.toUpperCase());
+      }
+      return capitalizedUsers;
+  }
+}
+```
 
 ### Ejercicio 2
 
