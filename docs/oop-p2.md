@@ -217,6 +217,11 @@ En la siguiente lista se incluyen 10 posibles problemas que pueden encontrarse e
 
 a) ¿Existe algún tipo de problema en la implementación anterior de los que se incluye en la lista anterior? ¿Es necesario aplicar refactoring en este caso? En el caso de que existan problemas, indique cuáles son y qué tipos de problemas piensa que generarían en el futuro si no se aplica el refactoring ahora.
 
++ Funciones con nombre que no especifica de forma clara su objetivo: la función getUser no lo especifica claramente.
+
++ Funciones con demasiada responsabilidad: la función getUsers tiene varias tareas, ordenar los usurios por puntos y capitalizar los nombres. Es mejor crear dos funciones distintas ya que para detectar errores es más difícil y no puedes hacer sólo una de las dos tareas.
+
+
 b) En el caso de que la implementación necesite la aplicación de refactoring, realice los cambios oportunos e indique las mejoras que aporta su implementación respecto a la original.
 
 ### Ejercicio 2
