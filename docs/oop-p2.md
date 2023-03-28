@@ -224,7 +224,7 @@ a) ¿Existe algún tipo de problema en la implementación anterior de los que se
 + Bucles demasiado largos o demasiado anidados: personalmente, las partes siguientes son más difíciles de entender que si se hiciesen con un bucle explícito. Para mantener y actualizar el código, es más complicado así.
 ```java
 users.forEach(x -> usersCapitalized.add(x.toUpperCase()));
-``
+```
 
 
 b) En el caso de que la implementación necesite la aplicación de refactoring, realice los cambios oportunos e indique las mejoras que aporta su implementación respecto a la original.
