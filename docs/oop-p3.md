@@ -100,6 +100,18 @@ public class Main {
 - El método de inyección que se realiza (constructor, propiedad o método).
 - La/s línea/s donde se realiza la inyección de dependencias.
 
+Sí, se realiza inyección de dependencias entre las clases anteriores.
+
++ Clase inyectora: Main
++ Servicios: DBAccessA y DBAccessB
++ Cliente: DBClient
+
+DBAccess es una interfaz que usan DBAccessA y DBAccessB. En el constructor de DBClient se recibe como parámetro un objeto DBAccess. Por ello, puede usarse con las clases DBAccessA y DBAccessB. El método de inyección utilizado es el constructor, ya que se pasa la dependencia requerida a través del constructor de la clase DBClient.
+
+La inyección de dependencias se realiza en las siguientes líneas de código:
++ En la línea 5 de Main, se instancia un objeto DBAccessB y se pasa como argumento al constructor de DBClient.
++ En la línea 10 de Main, se instancia un objeto DBAccessA y se pasa a través del método setDBAccess de DBClient.
+
 
 ### Ejercicio 2
 
