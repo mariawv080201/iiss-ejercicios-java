@@ -219,7 +219,7 @@ a) ¿Existe algún tipo de problema en la implementación anterior de los que se
 
 + Funciones con nombre que no especifica de forma clara su objetivo: la función getUser no lo especifica claramente.
 
-+ Funciones con demasiada responsabilidad: la función getUsers tiene varias tareas, ordenar los usurios por puntos y capitalizar los nombres. Es mejor crear dos funciones distintas ya que para detectar errores es más difícil y no puedes hacer sólo una de las dos tareas.
++ Funciones con demasiada responsabilidad: la función getUsers tiene varias tareas, ordenar los usurios por puntos y poner en mayúsculas los nombres. Es mejor crear dos funciones distintas ya que para detectar errores es más difícil y no puedes hacer sólo una de las dos tareas.
 
 + Bucles demasiado largos o demasiado anidados: personalmente, las partes siguientes son más difíciles de entender que si se hiciesen con un bucle explícito. Para mantener y actualizar el código, es más complicado así.
 ```java
@@ -357,7 +357,86 @@ Responda a las siguientes cuestiones, teniendo en cuenta la lista de los 10 posi
 
 a) El software del ejercicio anterior ha evolucionado añadiendo nueva funcionalidad en su implementación. ¿Existe algún tipo de problema en esta versión de la implementación de los que se incluyen en la lista? ¿Es necesario aplicar refactoring en este caso? En el caso de que existan problemas, indique cuáles son y qué tipos de problemas piensa que generarían en el futuro si no se aplica el refactoring ahora.
 
+Si, sigue habiendo problemas.
+
++ Código duplicado: se pueden poner en mayúsculas y ordenarlos primero, y luego meterlo ya en una lista. Así, se realizan las operaciones una vez en vez de tres. Es importante solucionarlo porque al tener código innecesario y repetido es difícil de entender y más ineficiente.
+
+No tiene sentido hacer:
+
+```java
+users1.forEach(x -> usersCapitalized1.add(x.toUpperCase()));
+users2.forEach(x -> usersCapitalized2.add(x.toUpperCase()));
+users3.forEach(x -> usersCapitalized3.add(x.toUpperCase()));
+```
+
+Cuando puedo hacerlo una vez en una función y llamarla tres veces para cada lista.
+
++ Funciones con demasiada responsabilidad: la función getUsers() vuelve a tener demasiada responsabilidad, ordenar los usuarios por puntos y poner en mayúsculas los nombres. Es importante solucionarlo porque si una función hace demasiadas cosas es más difícil hacer pruebas y encontrar errores, es mejor que cada función se centre en una tarea.
+
++ Funciones con nombre que no especifica de forma clara su objetivo: la función getUser no lo especifica claramente. Es importante solucionarlo para dar legibilidad.
+
++ Rutinas demasiado largas: el método getUsers realiza varias operaciones distintas, incluyendo la clasificación de los usuarios por puntos, poner en mayúscilas sus nombres y añadir los usuarios a una lista. Sería más fácil de leer y mantener si se divide en métodos más pequeños y enfocados. Es importante solucionarlo para dar legibilidad y que sea más fácil de entender qué hace esa función. 
+
 b) En el caso de que la implementación necesite la aplicación de refactoring, realice los cambios oportunos e indique las mejoras que aporta su implementación respecto a la original.
+
++ He dividido getUsers en getAllUsersInList(), getUsersWithCapitalizedNames() y getUsersSortedByPoints(). Así no hay código duplicado porque las funciones getUsersWithCapitalizedNames() y getUsersSortedByPoints() se hacen para una lista en vez de para tres. Además, he dividido la responsabilidad de la función original en tres y ahora los nombres son más representativos y el código más corto.
+
+```java
+public class GroupOfUsers {
+    
+    private static Map<String, Integer> usersWithPoints_Group1 =
+      new HashMap<String, Integer>() {{
+        put("User1", 800);
+        put("User2", 550);
+        put("User3", 20);
+        put("User4", 300);
+    }};
+    
+    private static Map<String, Integer> usersWithPoints_Group2 =
+      new HashMap<String, Integer>() {{
+        put("User1", 10);
+        put("User2", 990);
+        put("User3", 760);
+        put("User4", 230);
+    }};
+    
+    private static Map<String, Integer> usersWithPoints_Group3 =
+      new HashMap<String, Integer>() {{
+        put("User1", 1000);
+        put("User2", 200);
+        put("User3", 5);
+        put("User4", 780);
+    }};
+
+    public List<ArrayList<String>> getAllUsersInList() {
+        List<ArrayList<String>> users = new ArrayList<ArrayList<String>>();
+        users.add(getUsersWithCapitalizedNamesAndSortedByPoints(usersWithPoints_Group1));
+        users.add(getUsersWithCapitalizedNamesAndSortedByPoints(usersWithPoints_Group2));
+        users.add(getUsersWithCapitalizedNamesAndSortedByPoints(usersWithPoints_Group3));
+        return users;
+    }
+    
+    public static ArrayList<String> getUsersWithCapitalizedNames(Map<String, Integer> usersWithPoints) {
+      ArrayList<String> usersCapitalized = new ArrayList<String>();
+
+      for (String user : usersWithPoints.keySet()) {
+          usersCapitalized.add(user.toUpperCase());
+      }
+
+      return usersCapitalized;
+    }
+
+    public static ArrayList<String> getUsersSortedByPoints(Map<String, Integer> usersWithPoints) {
+      ArrayList<String> sortedUsers = new ArrayList<String>();
+
+      usersWithPoints.entrySet()
+      .stream()
+      .sorted(Map.Entry.<String, Integer>comparingByValue().reversed())
+      .forEach(x -> sortedUsers.add(x.getKey()));
+      return sortedUsers;
+    }
+}
+```
 
 ## Referencias
 
