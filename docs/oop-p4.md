@@ -262,7 +262,7 @@ public class Product {
 		this.height = height;
 	}
 	
-	public int getCode() {
+	public Optional<int> getCode() {
 		return code;
 	}
 	
@@ -289,7 +289,7 @@ public class Product {
 		this.weight = weight;
 	}
 	
-	public double getWeight() {
+	public Optional<double< getWeight() {
 		return this.weight;
 	}
 	
@@ -298,7 +298,7 @@ public class Product {
 		this.height = height;
 	}
 	
-	public double getHeight() {
+	public Optional<double> getHeight() {
 		return this.height;
 	}
 }
