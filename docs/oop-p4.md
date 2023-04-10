@@ -236,6 +236,72 @@ a) En la clase `Product.java`:
 
 Además, añadir un mensaje de error descriptivo en cada una de las aserciones que se hayan implementado.
 
+```java
+public class Product {
+	
+	private int code;
+	private String name;
+	private String category;
+	private double weight;
+	private double height;
+	
+	public Product(int code, String name, String category, double weight, double height) {
+	
+		assert code >= 0 : "El valor del atributo code no puede ser un numero negativo";
+		assert name != null && !name.isEmpty() : "El valor del atributo name no puede estar vacio";
+		assert category != null && !category.isEmpty() : "El valor del atributo category no puede estar vacio";
+		assert weight >= 0 : "El valor del atributo weight no puede ser un numero negativo";
+		assert height >= 0 : "El valor del atributo height no puede ser un numero negativo";
+		
+		this.code = code;
+		this.name = name;
+		this.category = category;
+		this.weight = weight;
+		this.height = height;
+	}
+	
+	public int getCode() {
+		return code;
+	}
+	
+	public void setName(String name) {
+		assert name != null && !name.isEmpty() : "El valor del atributo name no puede estar vacio";
+		this.name = name;
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public void setCategory(String category) {
+		assert category != null && !category.isEmpty() : "El valor del atributo category no puede estar vacio";
+		this.category = category;
+	}
+	
+	public String getCategory() {
+		return this.category;
+	}
+	
+	public void setWeight(double weight) {
+		assert weight >= 0 : "El valor del atributo weight no puede ser un numero negativo";
+		this.weight = weight;
+	}
+	
+	public double getWeight() {
+		return this.weight;
+	}
+	
+	public void setHeight(double height) {
+		assert height >= 0 : "El valor del atributo height no puede ser un numero negativo";
+		this.height = height;
+	}
+	
+	public double getHeight() {
+		return this.height;
+	}
+}
+```
+
 b) En la clase `ShoppingCart.java`:
 
 - No se puede añadir un producto con un número de unidades negativo o nulo.
