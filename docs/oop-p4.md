@@ -384,7 +384,7 @@ public class Product {
 		this.height = Optional.ofNullable(height);
 	}
 	
-	public int getCode() {
+	public Optional<int> getCode() {
 		return code;
 	}
 	
@@ -393,7 +393,7 @@ public class Product {
 		this.name = name;
 	}
 	
-	public Optional<String> getName() {
+	public String getName() {
 		return this.name;
 	}
 	
@@ -402,7 +402,7 @@ public class Product {
 		this.category = category;
 	}
 	
-	public Optional<String> getCategory() {
+	public String getCategory() {
 		return this.category;
 	}
 	
@@ -411,7 +411,7 @@ public class Product {
 		this.weight = Optional.ofNullable(weight);
 	}
 	
-	public double getWeight() {
+	public Optional<double> getWeight() {
 		return this.weight;
 	}
 	
@@ -420,7 +420,7 @@ public class Product {
 		this.height = Optional.ofNullable(height);
 	}
 	
-	public double getHeight() {
+	public Optional<double> getHeight() {
 		return this.height;
 	}
 }
