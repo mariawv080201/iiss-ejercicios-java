@@ -236,6 +236,8 @@ a) En la clase `Product.java`:
 
 Además, añadir un mensaje de error descriptivo en cada una de las aserciones que se hayan implementado.
 
+He añadido las aserciones correspondientes en el constructor y en los set.
+
 ```java
 public class Product {
 	
@@ -307,6 +309,8 @@ b) En la clase `ShoppingCart.java`:
 - No se puede añadir un producto con un número de unidades negativo o nulo.
 - No se puede eliminar un producto que no existe en el carrito.
 
+He añadido en addProduct que number debe ser mayor que cero y no nulo. En removeProduct he puesto una aserción para comprobar si el producto a eliminar no existe en el carrito.
+
 ```java
 import java.util.HashMap;
 import java.util.Map;
@@ -352,8 +356,9 @@ public class ShoppingCart {
 
 Dado el código del primer ejercicio, ¿existe algún uso indebido del valor `null`?. En caso afirmativo, reemplazar su uso por el de la clase `Optional` en los casos en los que sea necesario.
 
-Si, porque no comprobamos que code, weight y height no sean nulos, por lo que podríamos recibir un valor nulo y tener errores.
+Si, porque no comprobamos que code, weight y height no sean nulos, por lo que podríamos recibir un valor nulo y tener errores. Por ello, he usado Optional para los atributos code, weight y height en el constructor y en los set.
 
+```java
 import java.util.Optional;
 
 public class Product {
@@ -419,7 +424,7 @@ public class Product {
 		return this.height;
 	}
 }
-
+```
 
 ## Referencias
 
