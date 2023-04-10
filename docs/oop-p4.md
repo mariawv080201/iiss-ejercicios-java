@@ -426,6 +426,50 @@ public class Product {
 }
 ```
 
+Respecto a product, añadiría que al insertar o eliminar un producto, el producto no debería ser nulo así que no deberíamos usar optional pero si poner un assert en addProduct igual que el de removeProduct.
+
+```java
+import java.util.HashMap;
+import java.util.Map;
+
+public class ShoppingCart {
+	
+	Map<Product, Integer> shoppingCart;
+	
+	public ShoppingCart() {
+		shoppingCart = new HashMap<Product, Integer>();
+	}
+	
+	public void addProduct(Product product, int number) {
+		assert product != null : "El producto no puede ser nulo";	// cambio
+		assert number > 0 && number != null : "El numero de unidades de product no puede ser negativo o nulo";
+		
+		if(shoppingCart.keySet().stream().filter(element -> element.getCode() == product.getCode()).count() == 0) {
+			shoppingCart.put(product, number);
+		}
+	}
+	
+	public Product removeProduct(Product product) {
+		assert product != null : "El producto no puede ser nulo";
+		assert shoppingCart.containsKey(product) : "El producto a eliminar debe existir en el carrito".
+	
+		if(shoppingCart.containsKey(product)) {
+			shoppingCart.remove(product);
+			return product;
+		}
+	}
+	
+	public void printShoppingCartContent() {
+		System.out.println("The shopping cart content is: ");
+		
+		for(Product product: shoppingCart.keySet()) {
+			System.out.println(product.getCode() + " - " + product.getName() + " : " + shoppingCart.get(product));
+		}
+		
+	}
+}
+```
+
 ## Referencias
 
 [API Java]: https://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html
