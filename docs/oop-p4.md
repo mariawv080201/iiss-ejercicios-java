@@ -352,6 +352,75 @@ public class ShoppingCart {
 
 Dado el código del primer ejercicio, ¿existe algún uso indebido del valor `null`?. En caso afirmativo, reemplazar su uso por el de la clase `Optional` en los casos en los que sea necesario.
 
+Si, porque no comprobamos que code, weight y height no sean nulos, por lo que podríamos recibir un valor nulo y tener errores.
+
+import java.util.Optional;
+
+public class Product {
+	
+	private Optional<int> code;
+	private String name;
+	private String category;
+	private Optional<double> weight;
+	private Optional<double> height;
+	
+	public Product(int code, String name, String category, double weight, double height) {
+	
+		assert code >= 0 : "El valor del atributo code no puede ser un numero negativo";
+		assert name != null && !name.isEmpty() : "El valor del atributo name no puede estar vacio";
+		assert category != null && !category.isEmpty() : "El valor del atributo category no puede estar vacio";
+		assert weight >= 0 : "El valor del atributo weight no puede ser un numero negativo";
+		assert height >= 0 : "El valor del atributo height no puede ser un numero negativo";
+		
+		this.code = Optional.ofNullable(code);
+		this.name = name;
+		this.category = category;
+		this.weight = Optional.ofNullable(weight);
+		this.height = Optional.ofNullable(height);
+	}
+	
+	public int getCode() {
+		return code;
+	}
+	
+	public void setName(String name) {
+		assert name != null && !name.isEmpty() : "El valor del atributo name no puede estar vacio";
+		this.name = name;
+	}
+	
+	public Optional<String> getName() {
+		return this.name;
+	}
+	
+	public void setCategory(String category) {
+		assert category != null && !category.isEmpty() : "El valor del atributo category no puede estar vacio";
+		this.category = category;
+	}
+	
+	public Optional<String> getCategory() {
+		return this.category;
+	}
+	
+	public void setWeight(double weight) {
+		assert weight >= 0 : "El valor del atributo weight no puede ser un numero negativo";
+		this.weight = Optional.ofNullable(weight);
+	}
+	
+	public double getWeight() {
+		return this.weight;
+	}
+	
+	public void setHeight(double height) {
+		assert height >= 0 : "El valor del atributo height no puede ser un numero negativo";
+		this.height = Optional.ofNullable(height);
+	}
+	
+	public double getHeight() {
+		return this.height;
+	}
+}
+
+
 ## Referencias
 
 [API Java]: https://docs.oracle.com/javase/8/docs/technotes/guides/language/assert.html
