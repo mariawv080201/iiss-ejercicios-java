@@ -242,6 +242,8 @@ b) Mostrar el mensaje "The database is empty" después de la ejecución de la op
 
 3. Finalmente, sustituir el fichero `LoginAspect.java` por el fichero `LoginAspect.aj` incluyendo la misma funcionalidad pero utilizando la sintaxis de AspectJ.
 
+Solución: he añadido que antes de las operaciones `makeTransaction` y `takeMoneyOut` (usando @Before) se imprima "The login is required" imprimiéndolo con System.out.println. Del mismo modo he añadido que después de la ejecución de la operación `showUsers` se imprima "The database is empty" usando @After e imprimiendo el mensaje.
+
 ```java
 package es.uca.iiss.aspectj;
 
