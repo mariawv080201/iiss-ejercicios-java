@@ -426,7 +426,7 @@ public class Product {
 }
 ```
 
-Respecto a product, añadiría que al insertar o eliminar un producto, el producto no debería ser nulo así que no deberíamos usar optional pero si poner un assert en addProduct igual que el de removeProduct.
+Respecto a product, añadiría que al insertar o eliminar un producto, el producto no debería ser nulo así que no deberíamos usar Optional pero sí poner un assert en addProduct igual que el de removeProduct.
 
 ```java
 import java.util.HashMap;
