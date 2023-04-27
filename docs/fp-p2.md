@@ -248,6 +248,57 @@ Complete las secciones TO-DO de las clases `AsynchronousAPI` y `Main`, teniendo 
 - El método `additionAsync` debe añadir un retardo de 5 segundos en la suma de cada elemento.
 - En la función `main` se debe mostrar en consola el resultado de la suma completa con el mensaje `The result is (result)`.
 
+##### `AsynchronousAPI.java`
+
+En el método additionAsync creo un objeto CompletableFuture que será contendrá la suma de los elementos de la lista. Luego, usamos un objeto ExecutorService para enviar un trabajo asíncrono que realiza la suma de cada elemento de la lista. En el bucle for, sumamos cada elemento, mostramos un mensaje de Adding (element) y añadimos un retardo de 5 segundos para simular una operación costosa. Una vez que se completa el bucle for, llamamos al método completableFuture.complete(sum) para establecer el valor completo del objeto CompletableFuture con la suma.
+
+```java
+mport java.util.List;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+public class AsynchronousAPI {
+	public static Future<Integer> additionAsync(List<Integer> elements) throws InterruptedException {
+    		CompletableFuture<Integer> completableFuture = new CompletableFuture<>();
+    
+    		Executors.newCachedThreadPool().submit(() -> {
+        		int sum = 0;
+        		for (int element : elements) {
+            			sum += element;
+            			System.out.println("Adding " + element);
+            			try {
+                			Thread.sleep(5000); // Delay of 5 seconds for each element
+            			} catch (InterruptedException e) { e.printStackTrace(); }
+        		}
+        		completableFuture.complete(sum);
+    		});
+    		return completableFuture;
+	}
+}
+```
+
+##### `Main.java`
+
+Creo una lista de enteros y llamo al método additionAsync de la clase AsynchronousAPI, que devuelve un objeto Future que representa el resultado de la suma asíncrona. Luego, llamo al método get() del objeto Future para esperar a que se complete la operación y obtener el resultado de la suma. Finalmente, mostramos el resultado completo en la consola con el mensaje The result is (result).
+
+```java
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
+
+public class Main {
+	public static void main(String args[]) throws InterruptedException, ExecutionException {
+		List<Integer> elements = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		Future<Integer> completableFuture = AsynchronousAPI.additionAsync(elements);
+		Integer result = completableFuture.get();
+		System.out.println("The result is " + result);
+	}
+}
+```
+
+
 
 ### Ejercicio 2
 
