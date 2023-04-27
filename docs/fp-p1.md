@@ -69,6 +69,56 @@ public class Main {
 - Operación que multiplique todos los números de la lista por 10 e imprima el resultado.
 - Operación que devuelva el resultado de la suma de todos los números de la lista.
 
+##### `DataOperations.java`
+
+```java
+public interface DataOperations {
+    public void print(int[] data);
+    public int[] filterPairs(int[] data);
+    
+    // new
+    public int[] sortDesc(int[] data);
+    public void printMultiplied(int[] data);
+    public int sum(int[] data);
+}
+```
+
+##### `DataOperationsImpl.java`
+
+```java
+import java.util.stream.IntStream;
+
+public class DataOperationsImpl implements DataOperations {
+    @Override
+    public void print(int[] data) {
+        IntStream.of(data).forEach(element -> System.out.print(element + ", "));
+        System.out.println();
+    }
+
+    @Override
+    public int[] filterPairs(int[] data) {
+        return IntStream.of(data).filter(element -> (element % 2) != 0).toArray();
+    }
+
+    @Override
+    public int[] sortDesc(int[] data) {
+        return IntStream.of(data).boxed().sorted((a, b) -> b - a).mapToInt(i -> i).toArray();
+    }
+
+    @Override
+    public void printMultiplied(int[] data) {
+        IntStream.of(data).map(element -> element * 10).forEach(element -> System.out.print(element + ", "));
+        System.out.println();
+    }
+
+    @Override
+    public int sum(int[] data) {
+        return IntStream.of(data).sum();
+    }
+}
+```
+
+
 ### Ejercicio 2
 
 Dado los siguientes fragmentos de código que implementan un API cuya interfaz viene dada por `DataSorter`, responder a las siguientes preguntas.
