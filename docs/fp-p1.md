@@ -190,7 +190,7 @@ public class Main {
 
 He usado el método estático "comparing" de la clase Comparator de Java para comparar los elementos del array y ordenarlos según la implementación deseada. Comparator es una interfaz funcional que se puede utilizar para comparar objetos y ordenarlos.
 
-##### DataSorterAsc.java
+##### `DataSorterAsc.java
 
 ```java
 import java.util.Arrays;
@@ -204,7 +204,7 @@ public class DataSorterAsc {
 }
 ```
 
-##### DataSorterDesc.java
+##### `DataSorterDesc.java`
 
 ```java
 import java.util.Arrays;
@@ -220,7 +220,7 @@ public class DataSorterDesc {
 
 Para la ordenación aleatoria, se he usado el método "shuffle" de la clase Collections de Java, que permite mezclar los elementos de una colección de manera aleatoria.
 
-##### DataSorterRando.java
+##### `DataSorterRando.java`
 
 ```java
 import java.util.Arrays;
