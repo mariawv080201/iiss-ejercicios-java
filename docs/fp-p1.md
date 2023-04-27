@@ -76,7 +76,7 @@ public interface DataOperations {
     public void print(int[] data);
     public int[] filterPairs(int[] data);
     
-    // new
+    // nuevas funciones
     public int[] sortDesc(int[] data);
     public void printMultiplied(int[] data);
     public int sum(int[] data);
@@ -100,17 +100,20 @@ public class DataOperationsImpl implements DataOperations {
         return IntStream.of(data).filter(element -> (element % 2) != 0).toArray();
     }
 
+    // Operación que devuelva la lista de números ordenada descendentemente.
     @Override
     public int[] sortDesc(int[] data) {
         return IntStream.of(data).boxed().sorted((a, b) -> b - a).mapToInt(i -> i).toArray();
     }
 
+    // Operación que multiplique todos los números de la lista por 10 e imprima el resultado.
     @Override
     public void printMultiplied(int[] data) {
         IntStream.of(data).map(element -> element * 10).forEach(element -> System.out.print(element + ", "));
         System.out.println();
     }
 
+    // Operación que devuelva el resultado de la suma de todos los números de la lista.
     @Override
     public int sum(int[] data) {
         return IntStream.of(data).sum();
