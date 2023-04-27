@@ -188,6 +188,52 @@ public class Main {
 
 2. Añada un tercer cambio haciendo uso de cierres (*closures*) para realizar la ordenación aleatoria de los elementos, siguiendo el mismo enfoque aplicado con las clases `DataSorterAsc` y `DataSorterDesc` en el apartado anterior.
 
+He usado el método estático "comparing" de la clase Comparator de Java para comparar los elementos del array y ordenarlos según la implementación deseada. Comparator es una interfaz funcional que se puede utilizar para comparar objetos y ordenarlos.
+
+##### DataSorterAsc.java
+
+```java
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class DataSorterAsc {
+    public String[] sort(String[] data) {
+        Arrays.sort(data, Comparator.comparing(String::toString));
+        return data;
+    }
+}
+```
+
+##### DataSorterDesc.java
+
+```java
+import java.util.Arrays;
+import java.util.Comparator;
+
+public class DataSorterDesc {
+    public String[] sort(String[] data) {
+        Arrays.sort(data, Comparator.comparing(String::toString).reversed());
+        return data;
+    }
+}
+```
+
+Para la ordenación aleatoria, se he usado el método "shuffle" de la clase Collections de Java, que permite mezclar los elementos de una colección de manera aleatoria.
+
+##### DataSorterRando.java
+
+```java
+import java.util.Arrays;
+import java.util.Collections;
+
+public class DataSorterRandom {
+    public String[] sort(String[] data) {
+        Collections.shuffle(Arrays.asList(data));
+        return data;
+    }
+}
+```
+
 ## Referencias
 
 [Java 8 Stream Tutorial]: https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
