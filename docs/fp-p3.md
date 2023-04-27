@@ -467,6 +467,184 @@ Basándose en el código del ejercicio anterior, implemente una API para una tie
 
 3. Implemente además un programa de prueba `Main` que ilustre el uso de las operaciones anteriores.
 
+##### `Videogame.java`
+
+```java
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class Videogame {
+    private String title;
+    private String category;
+    private double price;
+
+    public Videogame(String title, String category, double price) {
+        this.title = title;
+        this.category = category;
+        this.price = price;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+}
+```
+
+##### `VideogameDatabase.java`
+
+```java
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+public class VideogameDatabase {
+    private static List<Videogame> videogames = new ArrayList<>();
+
+    public static void addVideogame(Videogame videogame) {
+        videogames.add(videogame);
+    }
+
+    public static List<String> getAllTitles() {
+        return videogames.stream()
+                .map(Videogame::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getTitlesByPriceOver(double limitPrice) {
+        return videogames.stream()
+                .filter(v -> v.getPrice() > limitPrice)
+                .map(Videogame::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getTitlesByCategory(String category) {
+        return videogames.stream()
+                .filter(v -> v.getCategory().equals(category))
+                .map(Videogame::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getTitlesByPriceOverAsc(double limitPrice) {
+        return videogames.stream()
+                .filter(v -> v.getPrice() > limitPrice)
+                .sorted(Comparator.comparing(Videogame::getPrice))
+                .map(Videogame::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public static List<String> getTitlesByPriceOverDesc(double limitPrice) {
+        return videogames.stream()
+                .filter(v -> v.getPrice() > limitPrice)
+                .sorted(Comparator.comparing(Videogame::getPrice).reversed())
+                .map(Videogame::getTitle)
+                .collect(Collectors.toList());
+    }
+
+    public static Map<String, Long> getNumOfVideogamesByCategory() {
+        return videogames.stream()
+                .collect(Collectors.groupingBy(Videogame::getCategory, Collectors.counting()));
+    }
+
+    public static Map<String, Double> getSumOfPricesByCategory() {
+        return videogames.stream()
+                .collect(Collectors.groupingBy(Videogame::getCategory, Collectors.summingDouble(Videogame::getPrice)));
+    }
+
+    public static Map<String, Double> getSumOfPricesByCategoryOver200() {
+        return videogames.stream()
+                .collect(Collectors.groupingBy(Videogame::getCategory, Collectors.summingDouble(Videogame::getPrice)))
+                .entrySet().stream()
+                .filter(entry -> entry.getValue() > 200)
+                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+    }
+}
+```
+
+##### `Main.java`
+
+```java
+public class Main {
+  public static void main(String[] args) {
+      // Crear algunos videojuegos
+      Videogame game1 = new Videogame("Resident Evil 8", "Terror", 59.99);
+      Videogame game2 = new Videogame("FIFA 22", "Deportes", 69.99);
+      Videogame game3 = new Videogame("Super Mario Odyssey", "Plataformas", 49.99);
+      Videogame game4 = new Videogame("Call of Duty: Vanguard", "Acción", 49.99);
+      Videogame game5 = new Videogame("The Legend of Zelda: Breath of the Wild", "Aventura", 59.99);
+      Videogame game6 = new Videogame("Silent Hill", "Terror", 29.99);
+      Videogame game7 = new Videogame("GTA V", "Acción", 29.99);
+      Videogame game8 = new Videogame("Minecraft", "Simulación", 19.99);
+
+      // Agregar los videojuegos a la base de datos
+      VideogameDatabase.addVideogame(game1);
+      VideogameDatabase.addVideogame(game2);
+      VideogameDatabase.addVideogame(game3);
+      VideogameDatabase.addVideogame(game4);
+      VideogameDatabase.addVideogame(game5);
+      VideogameDatabase.addVideogame(game6);
+      VideogameDatabase.addVideogame(game7);
+      VideogameDatabase.addVideogame(game8);
+
+      // Listar todos los títulos de los videojuegos
+      System.out.println("Todos los títulos de los videojuegos:");
+      VideogameDatabase.listAllTitles().forEach(System.out::println);
+
+      // Listar todos los títulos de los videojuegos cuyo precio sea superior a 20€
+      System.out.println("\nTítulos de los videojuegos cuyo precio sea superior a 20€:");
+      VideogameDatabase.listTitlesOverPrice(20).forEach(System.out::println);
+
+      // Listar todos los títulos de los videojuegos cuya categoría sea terror
+      System.out.println("\nTítulos de los videojuegos de terror:");
+      VideogameDatabase.listTitlesByCategory("Terror").forEach(System.out::println);
+
+      // Listar todos los títulos de los videojuegos cuyo precio sea superior a 20€ ordenados ascendentemente por el precio
+      System.out.println("\nTítulos de los videojuegos cuyo precio sea superior a 20€ ordenados ascendentemente por el precio:");
+      VideogameDatabase.listTitlesOverPriceAsc(20).forEach(System.out::println);
+
+      // Listar todos los títulos de los videojuegos cuyo precio sea superior a 20€ ordenados descendentemente por el precio
+      System.out.println("\nTítulos de los videojuegos cuyo precio sea superior a 20€ ordenados descendentemente por el precio:");
+      VideogameDatabase.listTitlesOverPriceDesc(20).forEach(System.out::println);
+
+      // Obtener el número de videojuegos agrupados por categoría
+      System.out.println("\nNúmero de videojuegos agrupados por categoría:");
+      VideogameDatabase.countByCategory().forEach((category, count) -> System.out.println(category + ": " + count));
+
+      // Obtener la suma de los precios de los videojuegos agrupados por categoría.
+      Map<String, Double> totalPricesByCategory = VideogameDatabase.getTotalPricesByCategory();
+      System.out.println("Total prices by category: " + totalPricesByCategory);
+
+      // Obtener la suma de los precios de los videojuegos agrupados por cateogoría, siempre que el precio obtenido de la suma sea superior a 200€.
+      Map<String, Double> totalPricesByCategoryFiltered = VideogameDatabase.getTotalPricesByCategoryFiltered();
+      System.out.println("Total prices by category (filtered): " + totalPricesByCategoryFiltered);
+  }
+}
+```
+
 ## Referencias
 
 [Java 8 Stream Tutorial]: https://winterbe.com/posts/2014/07/31/java8-stream-tutorial-examples/
