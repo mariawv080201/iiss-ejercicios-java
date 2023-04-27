@@ -364,6 +364,7 @@ public class Main {
 
 ##### `EmployeeDatabase.java`
 
+```java
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -431,6 +432,7 @@ public class EmployeeDatabase {
             .count();
     }
 }
+```
 
 ### Ejercicio 2
 
